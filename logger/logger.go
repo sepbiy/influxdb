@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/jsternberg/zap-logfmt"
-	isatty "github.com/mattn/go-isatty"
+	"github.com/mattn/go-isatty"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -43,7 +43,7 @@ func (c *Config) New(defaultOutput io.Writer) (*zap.Logger, error) {
 		encoder,
 		zapcore.Lock(zapcore.AddSync(w)),
 		c.Level,
-	)), nil
+	), zap.Fields(zap.String("cid", NextTraceID()))), nil
 }
 
 func newEncoder(format string) (zapcore.Encoder, error) {
