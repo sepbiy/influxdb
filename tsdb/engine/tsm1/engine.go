@@ -549,7 +549,9 @@ func (e *Engine) SeriesSketches() (estimator.Sketch, estimator.Sketch, error) {
 // LastModified returns the time when this shard was last modified.
 func (e *Engine) LastModified() time.Time {
 	walTime := e.WAL.LastWriteTime()
+	println("WAL = ", walTime.String())
 	fsTime := e.FileStore.LastModified()
+	println("FS = ", fsTime.String())
 
 	if walTime.After(fsTime) {
 		return walTime
